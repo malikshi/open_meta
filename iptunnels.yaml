@@ -1,0 +1,430 @@
+---
+proxy-providers:
+  VVIP-IPTUNNELS-ID:
+    type: file
+    path: "./proxy_provider/vvip-id.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 180
+  VVIP-IPTUNNELS-SG:
+    type: file
+    path: "./proxy_provider/vvip-sg.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 180
+  VVIP-IPTUNNELS-GAME:
+    type: file
+    path: "./proxy_provider/vvip-game.yaml"
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 180
+proxy-groups:
+- name: Route VVIP ID
+  type: load-balance
+  strategy: round-robin
+  disable-udp: false
+  use:
+  - VVIP-IPTUNNELS-ID
+  url: http://www.gstatic.com/generate_204
+  interval: 360
+- name: Route VVIP SG
+  type: load-balance
+  strategy: round-robin
+  disable-udp: false
+  use:
+  - VVIP-IPTUNNELS-SG
+  url: http://www.gstatic.com/generate_204
+  interval: 360
+- name: Route VVIP GAME
+  type: url-test
+  disable-udp: false
+  use:
+  - VVIP-IPTUNNELS-GAME
+  url: http://www.gstatic.com/generate_204
+  interval: 600
+- name: TrafficDirect
+  type: select
+  disable-udp: false
+  proxies:
+  - Direct Multi-WAN
+  - Route VVIP ID
+  - Route VVIP SG
+- name: Direct Multi-WAN
+  type: select
+  disable-udp: false
+  proxies:
+  - Direct WAN A
+  - Direct WAN B
+  - Direct WAN C
+- name: Direct WAN A
+  type: select
+  disable-udp: false
+  interface-name: eth1
+  proxies:
+  - DIRECT
+- name: Direct WAN B
+  type: select
+  disable-udp: false
+  interface-name: wlan0
+  proxies:
+  - DIRECT
+- name: Direct WAN C
+  type: select
+  disable-udp: false
+  interface-name: eth2
+  proxies:
+  - DIRECT
+- name: TrafficPortGames
+  type: select
+  disable-udp: false
+  proxies:
+  - TrafficDirect
+  - Route VVIP GAME
+- name: TrafficGaming
+  type: select
+  disable-udp: false
+  proxies:
+  - Route VVIP GAME
+  - TrafficDirect
+  - Direct WAN A
+  - Direct WAN B
+  - Direct WAN C
+  use:
+  - VVIP-IPTUNNELS-GAME
+- name: TrafficAds
+  type: select
+  disable-udp: false
+  proxies:
+  - REJECT
+  - Route VVIP SG
+  - Route VVIP ID
+- name: TrafficPorn
+  type: select
+  disable-udp: false
+  proxies:
+  - REJECT
+  - Route VVIP SG
+  - Route VVIP ID
+- name: TrafficUmum
+  type: fallback
+  lazy: true
+  disable-udp: false
+  proxies:
+  - Route VVIP SG
+  - Route VVIP ID
+  - Direct Multi-WAN
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: TrafficIndo
+  type: fallback
+  lazy: true
+  disable-udp: false
+  proxies:
+  - Route VVIP ID
+  - Route VVIP SG
+  - TrafficDirect
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: TrafficStreaming
+  type: fallback
+  lazy: true
+  disable-udp: false
+  proxies:
+  - Route VVIP SG
+  - Route VVIP ID
+  - Direct Multi-WAN
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+- name: TrafficSosmed
+  type: fallback
+  lazy: true
+  disable-udp: false
+  proxies:
+  - Route VVIP ID
+  - Route VVIP SG
+  - Direct Multi-WAN
+  url: http://www.gstatic.com/generate_204
+  interval: '30'
+port: 7890
+socks-port: 7891
+mixed-port: 7890
+redir-port: 7892
+tproxy-port: 7893
+geodata-mode: true
+tcp-concurrent: true
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+external-ui: "/usr/share/openclash/ui"
+secret: '123456'
+profile:
+  store-selected: false
+  store-fake-ip: true
+sniffer:
+  enable: true
+  sniffing:
+    - tls
+    - http
+  skip-domain:
+    - 'Mijia Cloud'
+    - 'dlg.io.mi.com'
+    - '+.apple.com'
+  force-domain:
+    - 'google.com'
+dns:
+  enable: true
+  listen: 0.0.0.0:53  
+  default-nameserver:
+    - 8.8.8.8
+    - 8.8.4.4
+    - 1.1.1.1
+    - 1.0.0.1
+    - 9.9.9.9
+    - 149.112.112.112
+    - 208.67.222.222
+    - 208.67.220.220
+    - 185.228.168.9
+    - 185.228.169.168
+    - 76.76.2.0
+    - 76.76.10.0
+    - 94.140.14.140
+    - 94.140.14.141
+    - 172.105.216.54
+  enhanced-mode: redir-host
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - 114.114.114.114
+    - https://doh.pub/dns-query
+    - tls://101.101.101.101:853
+  fallback:
+    - https://doh.dns.sb/dns-query
+    - tcp://208.67.222.222:443
+    - quic://a.passcloud.xyz:784                                     
+  fallback-filter:
+    geoip: true
+    geoip-code: ID
+    geosite:
+      - rule-indo
+    ipcidr:
+      - 240.0.0.0/4
+    domain:
+      - '+.google.com'
+      - '+.facebook.com'
+      - '+.youtube.com'
+rules:
+- DST-PORT,22,TrafficDirect
+- GEOIP,private,DIRECT,no-resolve
+- RULE-SET,rule_malicious,REJECT
+- RULE-SET,rule_maliciousip,REJECT
+- GEOSITE,oisd-full,TrafficAds
+- RULE-SET,rule_personalads,TrafficAds
+- RULE-SET,rule_hijacking,TrafficAds
+- RULE-SET,rule_privacy,TrafficAds
+- GEOSITE,oisd-nsfw,TrafficPorn
+- GEOSITE,category-porn,TrafficPorn
+- RULE-SET,rule_Direct,TrafficDirect
+- RULE-SET,rule_speedtest,TrafficUmum,tcp
+- RULE-SET,rule_playstore,TrafficUmum
+- GEOSITE,disney,TrafficIndo
+- GEOSITE,netflix,TrafficIndo
+- GEOIP,netflix,TrafficIndo
+- GEOSITE,viu,TrafficIndo
+- GEOSITE,hbo,TrafficIndo
+- GEOSITE,rule-indo,TrafficIndo
+- GEOSITE,iqiyi,TrafficStreaming
+- GEOSITE,abema,TrafficStreaming
+- GEOSITE,anime,TrafficStreaming
+- GEOSITE,archiveofourown,TrafficStreaming
+- GEOSITE,attwatchtv,TrafficStreaming
+- GEOSITE,bahamut,TrafficStreaming
+- GEOSITE,bandcamp,TrafficStreaming
+- GEOSITE,dandanzan,TrafficStreaming
+- GEOSITE,dazn,TrafficStreaming
+- GEOSITE,deviantart,TrafficStreaming
+- GEOSITE,discoveryplus,TrafficStreaming
+- GEOSITE,dlsite,TrafficStreaming
+- GEOSITE,goodreads,TrafficStreaming
+- GEOSITE,hamivideo,TrafficStreaming
+- GEOSITE,hulu,TrafficStreaming
+- GEOSITE,imdb,TrafficStreaming
+- GEOSITE,kingkonglive,TrafficStreaming
+- GEOSITE,kkbox,TrafficStreaming
+- GEOSITE,manhuagui,TrafficStreaming
+- GEOSITE,mudvod,TrafficStreaming
+- GEOSITE,mytvsuper,TrafficStreaming
+- GEOSITE,niconico,TrafficStreaming
+- GEOSITE,pixiv,TrafficStreaming
+- GEOSITE,pocketcasts,TrafficStreaming
+- GEOSITE,primevideo,TrafficStreaming
+- GEOSITE,roku,TrafficStreaming
+- GEOSITE,sling,TrafficStreaming
+- GEOSITE,sonypictures,TrafficStreaming
+- GEOSITE,soundcloud,TrafficStreaming
+- GEOSITE,spotify,TrafficStreaming
+- GEOSITE,subscene,TrafficStreaming
+- GEOSITE,tidal,TrafficStreaming
+- GEOSITE,tiktok,TrafficStreaming
+- GEOSITE,tmdb,TrafficStreaming
+- GEOSITE,tvdb,TrafficStreaming
+- GEOSITE,tver,TrafficStreaming
+- GEOSITE,twitch,TrafficStreaming
+- GEOSITE,vimeo,TrafficStreaming
+- GEOSITE,visualarts,TrafficStreaming
+- GEOSITE,volmoe,TrafficStreaming
+- GEOSITE,wwe,TrafficStreaming
+- GEOSITE,z-library,TrafficStreaming
+- GEOSITE,zeetv,TrafficStreaming
+- RULE-SET,rule_Streaming,TrafficStreaming
+- GEOSITE,line,TrafficSosmed
+- GEOSITE,facebook,TrafficSosmed
+- GEOIP,facebook,TrafficSosmed
+- GEOSITE,tiktok,TrafficSosmed
+- GEOSITE,twitter,TrafficSosmed
+- GEOIP,twitter,TrafficSosmed
+- GEOSITE,telegram,TrafficSosmed
+- GEOIP,telegram,TrafficSosmed
+- RULE-SET,rule_Sosmed,TrafficSosmed
+- RULE-SET,rule_videoconferences,TrafficStreaming
+#MLBB
+- DST-PORT,5000-5221/5224-5227/5229-5241/5243-5287/5289-5352/5354-5509/5517/5520-5529/5551-5559/5601-5700/8443/9000-9010/9443/10003/30000-30300,tcp,TrafficPortGames
+- DST-PORT,5517-5529/5551-5559/5601-5700/8001/8130/8443/9000-9010/9120/9992/10003/30000-30300,udp,TrafficPortGames
+#FF
+- DST-PORT,6006/6008/6674/7006-7008/7889/8001-8012/9006/9137/10000-10012/11000-11019/12006/12008/13006/15006/20561/39003/39006/39698/39779/39800,tcp,TrafficPortGames
+- DST-PORT,6006/6008/6674/7006-7008/7889/8008/8001-8012/8130/8443/9008/9120/10000-10015/10100/11000-11019/12008/13008,udp,TrafficPortGames
+#PUBG
+- DST-PORT,7889/10012/13004/14000/17000/17500/18081/20000-20002/20371,tcp,TrafficPortGames
+- DST-PORT,8011/9030/10491/10612/12235/13004/13748/17000/17500/20000-20002/7086-7995/10039/10096/11455/12070-12460/13894/13972/41182-41192,udp,TrafficPortGames
+#CODM
+- DST-PORT,3013/10000-10019/18082/50000/65010/65050,tcp,TrafficPortGames
+- DST-PORT,7085-7995/8700/9030/10010-10019/17000-20100,udp,TrafficPortGames
+#AOV
+- DST-PORT,10001-10094,tcp,TrafficPortGames
+- DST-PORT,10101-10201/10080-10110/17000-18000,udp,TrafficPortGames
+#Stumble Guys
+- DST-PORT,5055-5058,udp,TrafficPortGames
+#Genshin Impact
+- DST-PORT,42472,tcp,TrafficPortGames
+- DST-PORT,42472/22101-22102,udp,TrafficPortGames
+#Clash of Clans (COC) & Clash Royale
+- DST-PORT,9330-9340,tcp,TrafficPortGames
+- DST-PORT,9330-9340,udp,TrafficPortGames
+#League of Legends (LOL) Mobile
+- DST-PORT,2080-2099,tcp,TrafficPortGames
+- DST-PORT,5100,udp,TrafficPortGames
+#DOTA2
+- DST-PORT,9100-9200/8230-8250/8110-8120/27000-28998,tcp,TrafficPortGames
+- DST-PORT,27000-28998/39000,udp,TrafficPortGames
+#FIFA ONLINE
+- DST-PORT,7770-7790,tcp,TrafficPortGames
+- DST-PORT,16300-16350,udp,TrafficPortGames
+#Point Blank Mobile (PB-Mobile)
+- DST-PORT,44590-44610,tcp,TrafficPortGames
+- DST-PORT,40000-40010,udp,TrafficPortGames
+#LINE Let’s Get Rich
+- DST-PORT,10500-10515,tcp,TrafficPortGames
+#Dream League Soccer
+- DST-PORT,60970-60980,udp,TrafficPortGames
+#Among Us
+- DST-PORT,27015-27030/27036-27037,tcp,TrafficPortGames
+- DST-PORT,4380/27000-27031/27036,udp,TrafficPortGames
+#Bleach ES
+- DST-PORT,14422,TrafficPortGames
+# growrtopia
+- DST-PORT,16999,TrafficPortGames
+# apex|ff|mlbbb
+- DST-PORT,8888,TrafficPortGames
+- NOT,((RULE-SET,rule_umum)),TrafficPortGames
+- RULE-SET,rule_Gaming,TrafficGaming
+- GEOSITE,category-games,TrafficGaming
+- GEOSITE,discord,TrafficGaming
+- RULE-SET,rule_umum,TrafficUmum
+tun:
+  enable: true
+  stack: system
+  auto-route: false
+  auto-detect-interface: false
+  dns-hijack:
+  - tcp://any:53
+rule-providers:
+  rule_Direct:
+    type: file
+    behavior: classical
+    path: "./rule_provider/rule_direct.yaml"
+  rule_umum:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_umum.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_umum.yaml
+    interval: 86400
+  rule_videoconferences:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_videoconferences.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_videoconferences.yaml
+    interval: 86400
+  rule_Sosmed:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_sosmed.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_sosmed.yaml
+    interval: 86400
+  rule_Streaming:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_streaming.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_streaming.yaml
+    interval: 86400
+  rule_Gaming:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_gaming.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_gaming.yaml
+    interval: 86400
+  rule_Speedtest:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_speedtest.yaml
+    path: "./rule_provider/rule_speedtest.yaml"
+    interval: 86400
+  rule_hijacking:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_hijacking.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_hijacking.yaml
+    interval: 86400
+  rule_privacy:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_privacy.yaml
+    path: "./rule_provider/rule_privacy.yaml"
+    interval: 86400
+  rule_personalads:
+    type: http
+    behavior: classical
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_personalads.yaml
+    path: "./rule_provider/rule_personalads.yaml"
+    interval: 86400
+  rule_malicious:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_malicious.yaml
+    path: "./rule_provider/rule_malicious.yaml"
+    interval: 86400
+  rule_maliciousip:
+    type: http
+    behavior: ipcidr
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_maliciousip.yaml
+    path: "./rule_provider/rule_maliciousip.yaml"
+    interval: 86400
+  rule_playstore:
+    type: http
+    behavior: domain
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_playstore.yaml
+    path: "./rule_provider/rule_playstore.yaml"
+    interval: 86400
