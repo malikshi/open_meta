@@ -134,77 +134,184 @@ proxy-groups:
   interval: 30
 port: 7890
 socks-port: 7891
-mixed-port: 7890
+mixed-port: 7893
 redir-port: 7892
-tproxy-port: 7893
+tproxy-port: 7895
 geodata-mode: true
+geodata-loader: memconservative
 tcp-concurrent: true
 allow-lan: true
 bind-address: '*'
 mode: rule
-log-level: info
+log-level: silent
 ipv6: false
-external-controller: 127.0.0.1:9090
+external-controller: 0.0.0.0:9090
 external-ui: "/usr/share/openclash/ui"
 secret: '123456'
 profile:
-  store-selected: false
-  store-fake-ip: true
+  store-selected: true
+  store-fake-ip: false
 sniffer:
   enable: true
   sniffing:
-    - tls
-    - http
-  skip-domain:
-    - 'Mijia Cloud'
-    - 'dlg.io.mi.com'
-    - '+.apple.com'
+  - tls
+  - http
   force-domain:
-    - 'google.com'
+  - "+.netflix.com"
+  - "+.nflxvideo.net"
+  - "+.amazonaws.com"
+  - "+.media.dssott.com"
+  skip-domain:
+  - "+.apple.com"
+  - Mijia Cloud
+  - "+.jd.com"
+  port-whitelist:
+  - 443
+  - 80
 dns:
   enable: true
-  listen: 0.0.0.0:53  
+  listen: 0.0.0.0:7874
   default-nameserver:
-    - 8.8.8.8
-    - 8.8.4.4
-    - 1.1.1.1
-    - 1.0.0.1
-    - 9.9.9.9
-    - 149.112.112.112
-    - 208.67.222.222
-    - 208.67.220.220
-    - 185.228.168.9
-    - 185.228.169.168
-    - 76.76.2.0
-    - 76.76.10.0
-    - 94.140.14.140
-    - 94.140.14.141
-    - 172.105.216.54
-  enhanced-mode: redir-host
+  - 8.8.8.8
+  - 8.8.4.4
+  - 1.1.1.1
+  - 1.0.0.1
+  - 9.9.9.9
+  - 149.112.112.112
+  - 208.67.222.222
+  - 208.67.220.220
+  - 185.228.168.9
+  - 185.228.169.168
+  - 76.76.2.0
+  - 76.76.10.0
+  - 94.140.14.140
+  - 94.140.14.141
+  - 172.105.216.54
+  enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   nameserver:
-    - 114.114.114.114
-    - https://doh.pub/dns-query
-    - tls://101.101.101.101:853
+  - https://dns.cloudflare.com/dns-query
+  - tls://8.8.8.8:853
   fallback:
-    - https://doh.dns.sb/dns-query
-    - tcp://208.67.222.222:443
-    - quic://a.passcloud.xyz:784                                     
+  - https://dns.google/dns-query
+  - tls://1.1.1.1:853
   fallback-filter:
     geoip: true
     geoip-code: ID
     geosite:
-      - rule-indo
+    - rule-indo
     ipcidr:
-      - 240.0.0.0/4
+    - 240.0.0.0/4
     domain:
-      - '+.google.com'
-      - '+.facebook.com'
-      - '+.youtube.com'
+    - "+.google.com"
+    - "+.facebook.com"
+    - "+.youtube.com"
+  ipv6: false
+  fake-ip-filter:
+  - "*.lan"
+  - "*.localdomain"
+  - "*.example"
+  - "*.invalid"
+  - "*.localhost"
+  - "*.test"
+  - "*.local"
+  - "*.home.arpa"
+  - time.*.com
+  - time.*.gov
+  - time.*.edu.cn
+  - time.*.apple.com
+  - time-ios.apple.com
+  - time1.*.com
+  - time2.*.com
+  - time3.*.com
+  - time4.*.com
+  - time5.*.com
+  - time6.*.com
+  - time7.*.com
+  - ntp.*.com
+  - ntp1.*.com
+  - ntp2.*.com
+  - ntp3.*.com
+  - ntp4.*.com
+  - ntp5.*.com
+  - ntp6.*.com
+  - ntp7.*.com
+  - "*.time.edu.cn"
+  - "*.ntp.org.cn"
+  - "+.pool.ntp.org"
+  - time1.cloud.tencent.com
+  - music.163.com
+  - "*.music.163.com"
+  - "*.126.net"
+  - musicapi.taihe.com
+  - music.taihe.com
+  - songsearch.kugou.com
+  - trackercdn.kugou.com
+  - "*.kuwo.cn"
+  - api-jooxtt.sanook.com
+  - api.joox.com
+  - joox.com
+  - y.qq.com
+  - "*.y.qq.com"
+  - streamoc.music.tc.qq.com
+  - mobileoc.music.tc.qq.com
+  - isure.stream.qqmusic.qq.com
+  - dl.stream.qqmusic.qq.com
+  - aqqmusic.tc.qq.com
+  - amobile.music.tc.qq.com
+  - "*.xiami.com"
+  - "*.music.migu.cn"
+  - music.migu.cn
+  - "+.msftconnecttest.com"
+  - "+.msftncsi.com"
+  - msftconnecttest.com
+  - msftncsi.com
+  - localhost.ptlogin2.qq.com
+  - localhost.sec.qq.com
+  - "+.srv.nintendo.net"
+  - "*.n.n.srv.nintendo.net"
+  - "+.stun.playstation.net"
+  - xbox.*.*.microsoft.com
+  - "*.*.xboxlive.com"
+  - xbox.*.microsoft.com
+  - xnotify.xboxlive.com
+  - "+.battlenet.com.cn"
+  - "+.wotgame.cn"
+  - "+.wggames.cn"
+  - "+.wowsgame.cn"
+  - "+.wargaming.net"
+  - proxy.golang.org
+  - stun.*.*
+  - stun.*.*.*
+  - "+.stun.*.*"
+  - "+.stun.*.*.*"
+  - "+.stun.*.*.*.*"
+  - "+.stun.*.*.*.*.*"
+  - heartbeat.belkin.com
+  - "*.linksys.com"
+  - "*.linksyssmartwifi.com"
+  - "*.router.asus.com"
+  - mesu.apple.com
+  - swscan.apple.com
+  - swquery.apple.com
+  - swdownload.apple.com
+  - swcdn.apple.com
+  - swdist.apple.com
+  - lens.l.google.com
+  - stun.l.google.com
+  - "+.nflxvideo.net"
+  - "*.square-enix.com"
+  - "*.finalfantasyxiv.com"
+  - "*.ffxiv.com"
+  - "*.ff14.sdo.com"
+  - ff.dorado.sdo.com
+  - "*.mcdn.bilivideo.cn"
+  - "+.media.dssott.com"
+  - shark007.net
 rules:
 - DST-PORT,22,TrafficDirect
 - GEOIP,private,DIRECT,no-resolve
-- GEOSITE,rule-malicious,REJECT
+# - GEOSITE,rule-malicious,REJECT     #activating this will probably make an error
 - GEOSITE,oisd-full,TrafficAds
 - GEOSITE,rule-ads,TrafficAds
 - GEOSITE,oisd-nsfw,TrafficPorn
@@ -333,13 +440,6 @@ rules:
 - GEOSITE,category-games,TrafficGaming
 - GEOSITE,discord,TrafficGaming
 - RULE-SET,rule_umum,TrafficUmum
-tun:
-  enable: true
-  stack: system
-  auto-route: false
-  auto-detect-interface: false
-  dns-hijack:
-  - tcp://any:53
 rule-providers:
   rule_Direct:
     type: file
