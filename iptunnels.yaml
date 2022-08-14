@@ -211,7 +211,7 @@ rules:
 - GEOSITE,category-porn,TrafficPorn
 - RULE-SET,rule_Direct,TrafficDirect
 - GEOSITE,speedtest,TrafficUmum
-- GEOSITE,rule_playstore,TrafficUmum
+- GEOSITE,rule-playstore,TrafficUmum
 - GEOSITE,disney,TrafficIndo
 - GEOSITE,netflix,TrafficIndo
 - GEOIP,netflix,TrafficIndo
