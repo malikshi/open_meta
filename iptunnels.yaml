@@ -377,12 +377,18 @@ rules:
 # apex|ff|mlbbb
 - DST-PORT,8888,TrafficPortGames
 #for ALL ports games
-- NOT,((DST-PORT,21/22/23/53/80/123/143/194/443/465/587/853/993/995/998/2052/2053/2082/2083/2086/2095/2096/5222/5228/5229/5230/8080/8443/8880/8883/8888/8889)),TrafficPortGames
+- NOT,((RULE-SET,rule_umum)),TrafficPortGames
 - GEOSITE,rule-gaming,TrafficGaming
 #Traffic Umum
-- DST-PORT,21/22/23/53/80/123/143/194/443/465/587/853/993/995/998/2052/2053/2082/2083/2086/2095/2096/5222/5228/5229/5230/8080/8443/8880/8883/8888/8889,TrafficUmum
+- RULE-SET,rule_umum,TrafficUmum
 rule-providers:
   rule_direct:
     type: file
     behavior: classical
     path: "./rule_provider/rule_direct.yaml"
+  rule_umum:
+    type: http
+    behavior: classical
+    path: "./rule_provider/rule_umum.yaml"
+    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_umum.yaml
+    interval: 86400
