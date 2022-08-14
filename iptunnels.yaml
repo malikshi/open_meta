@@ -25,7 +25,6 @@ proxy-groups:
 - name: Route VVIP ID
   type: load-balance
   strategy: round-robin
-  disable-udp: false
   use:
   - VVIP-IPTUNNELS-ID
   url: http://www.gstatic.com/generate_204
@@ -33,59 +32,50 @@ proxy-groups:
 - name: Route VVIP SG
   type: load-balance
   strategy: round-robin
-  disable-udp: false
   use:
   - VVIP-IPTUNNELS-SG
   url: http://www.gstatic.com/generate_204
   interval: 360
 - name: Route VVIP GAME
   type: url-test
-  disable-udp: false
   use:
   - VVIP-IPTUNNELS-GAME
   url: http://www.gstatic.com/generate_204
   interval: 600
 - name: TrafficDirect
   type: select
-  disable-udp: false
   proxies:
   - Direct Multi-WAN
   - Route VVIP ID
   - Route VVIP SG
 - name: Direct Multi-WAN
   type: select
-  disable-udp: false
   proxies:
   - Direct WAN A
   - Direct WAN B
   - Direct WAN C
 - name: Direct WAN A
   type: select
-  disable-udp: false
   interface-name: eth1
   proxies:
   - DIRECT
 - name: Direct WAN B
   type: select
-  disable-udp: false
   interface-name: wlan0
   proxies:
   - DIRECT
 - name: Direct WAN C
   type: select
-  disable-udp: false
   interface-name: eth2
   proxies:
   - DIRECT
 - name: TrafficPortGames
   type: select
-  disable-udp: false
   proxies:
   - TrafficDirect
   - Route VVIP GAME
 - name: TrafficGaming
   type: select
-  disable-udp: false
   proxies:
   - Route VVIP GAME
   - TrafficDirect
@@ -96,14 +86,12 @@ proxy-groups:
   - VVIP-IPTUNNELS-GAME
 - name: TrafficAds
   type: select
-  disable-udp: false
   proxies:
   - REJECT
   - Route VVIP SG
   - Route VVIP ID
 - name: TrafficPorn
   type: select
-  disable-udp: false
   proxies:
   - REJECT
   - Route VVIP SG
@@ -111,43 +99,39 @@ proxy-groups:
 - name: TrafficUmum
   type: fallback
   lazy: true
-  disable-udp: false
   proxies:
   - Route VVIP SG
   - Route VVIP ID
   - Direct Multi-WAN
   url: http://www.gstatic.com/generate_204
-  interval: '30'
+  interval: 30
 - name: TrafficIndo
   type: fallback
   lazy: true
-  disable-udp: false
   proxies:
   - Route VVIP ID
   - Route VVIP SG
   - TrafficDirect
   url: http://www.gstatic.com/generate_204
-  interval: '30'
+  interval: 30
 - name: TrafficStreaming
   type: fallback
   lazy: true
-  disable-udp: false
   proxies:
   - Route VVIP SG
   - Route VVIP ID
   - Direct Multi-WAN
   url: http://www.gstatic.com/generate_204
-  interval: '30'
+  interval: 30
 - name: TrafficSosmed
   type: fallback
   lazy: true
-  disable-udp: false
   proxies:
   - Route VVIP ID
   - Route VVIP SG
   - Direct Multi-WAN
   url: http://www.gstatic.com/generate_204
-  interval: '30'
+  interval: 30
 port: 7890
 socks-port: 7891
 mixed-port: 7890
@@ -292,47 +276,47 @@ rules:
 - RULE-SET,rule_Sosmed,TrafficSosmed
 - RULE-SET,rule_videoconferences,TrafficStreaming
 #MLBB
-- DST-PORT,5000-5221/5224-5227/5229-5241/5243-5287/5289-5352/5354-5509/5517/5520-5529/5551-5559/5601-5700/8443/9000-9010/9443/10003/30000-30300,tcp,TrafficPortGames
-- DST-PORT,5517-5529/5551-5559/5601-5700/8001/8130/8443/9000-9010/9120/9992/10003/30000-30300,udp,TrafficPortGames
+- DST-PORT,5000-5221/5224-5227/5229-5241/5243-5287/5289-5352/5354-5509/5517/5520-5529/5551-5559/5601-5700/8443/9000-9010/9443/10003/30000-30300,TrafficPortGames,tcp
+- DST-PORT,5517-5529/5551-5559/5601-5700/8001/8130/8443/9000-9010/9120/9992/10003/30000-30300,TrafficPortGames,udp
 #FF
-- DST-PORT,6006/6008/6674/7006-7008/7889/8001-8012/9006/9137/10000-10012/11000-11019/12006/12008/13006/15006/20561/39003/39006/39698/39779/39800,tcp,TrafficPortGames
-- DST-PORT,6006/6008/6674/7006-7008/7889/8008/8001-8012/8130/8443/9008/9120/10000-10015/10100/11000-11019/12008/13008,udp,TrafficPortGames
+- DST-PORT,6006/6008/6674/7006-7008/7889/8001-8012/9006/9137/10000-10012/11000-11019/12006/12008/13006/15006/20561/39003/39006/39698/39779/39800,TrafficPortGames,tcp
+- DST-PORT,6006/6008/6674/7006-7008/7889/8008/8001-8012/8130/8443/9008/9120/10000-10015/10100/11000-11019/12008/13008,TrafficPortGames,udp
 #PUBG
-- DST-PORT,7889/10012/13004/14000/17000/17500/18081/20000-20002/20371,tcp,TrafficPortGames
-- DST-PORT,8011/9030/10491/10612/12235/13004/13748/17000/17500/20000-20002/7086-7995/10039/10096/11455/12070-12460/13894/13972/41182-41192,udp,TrafficPortGames
+- DST-PORT,7889/10012/13004/14000/17000/17500/18081/20000-20002/20371,TrafficPortGames,tcp
+- DST-PORT,8011/9030/10491/10612/12235/13004/13748/17000/17500/20000-20002/7086-7995/10039/10096/11455/12070-12460/13894/13972/41182-41192,TrafficPortGames,udp
 #CODM
-- DST-PORT,3013/10000-10019/18082/50000/65010/65050,tcp,TrafficPortGames
-- DST-PORT,7085-7995/8700/9030/10010-10019/17000-20100,udp,TrafficPortGames
+- DST-PORT,3013/10000-10019/18082/50000/65010/65050,TrafficPortGames,tcp
+- DST-PORT,7085-7995/8700/9030/10010-10019/17000-20100,TrafficPortGames,udp
 #AOV
-- DST-PORT,10001-10094,tcp,TrafficPortGames
-- DST-PORT,10101-10201/10080-10110/17000-18000,udp,TrafficPortGames
+- DST-PORT,10001-10094,TrafficPortGames,tcp
+- DST-PORT,10101-10201/10080-10110/17000-18000,TrafficPortGames,udp
 #Stumble Guys
-- DST-PORT,5055-5058,udp,TrafficPortGames
+- DST-PORT,5055-5058,TrafficPortGames,udp
 #Genshin Impact
-- DST-PORT,42472,tcp,TrafficPortGames
-- DST-PORT,42472/22101-22102,udp,TrafficPortGames
+- DST-PORT,42472,TrafficPortGames,tcp
+- DST-PORT,42472/22101-22102,TrafficPortGames,udp
 #Clash of Clans (COC) & Clash Royale
-- DST-PORT,9330-9340,tcp,TrafficPortGames
-- DST-PORT,9330-9340,udp,TrafficPortGames
+- DST-PORT,9330-9340,TrafficPortGames,tcp
+- DST-PORT,9330-9340,TrafficPortGames,udp
 #League of Legends (LOL) Mobile
-- DST-PORT,2080-2099,tcp,TrafficPortGames
-- DST-PORT,5100,udp,TrafficPortGames
+- DST-PORT,2080-2099,TrafficPortGames,tcp
+- DST-PORT,5100,TrafficPortGames,udp
 #DOTA2
-- DST-PORT,9100-9200/8230-8250/8110-8120/27000-28998,tcp,TrafficPortGames
-- DST-PORT,27000-28998/39000,udp,TrafficPortGames
+- DST-PORT,9100-9200/8230-8250/8110-8120/27000-28998,TrafficPortGames,tcp
+- DST-PORT,27000-28998/39000,TrafficPortGames,udp
 #FIFA ONLINE
-- DST-PORT,7770-7790,tcp,TrafficPortGames
-- DST-PORT,16300-16350,udp,TrafficPortGames
+- DST-PORT,7770-7790,TrafficPortGames,tcp
+- DST-PORT,16300-16350,TrafficPortGames,udp
 #Point Blank Mobile (PB-Mobile)
-- DST-PORT,44590-44610,tcp,TrafficPortGames
-- DST-PORT,40000-40010,udp,TrafficPortGames
+- DST-PORT,44590-44610,TrafficPortGames,tcp
+- DST-PORT,40000-40010,TrafficPortGames,udp
 #LINE Let’s Get Rich
-- DST-PORT,10500-10515,tcp,TrafficPortGames
+- DST-PORT,10500-10515,TrafficPortGames,tcp
 #Dream League Soccer
-- DST-PORT,60970-60980,udp,TrafficPortGames
+- DST-PORT,60970-60980,TrafficPortGames,udp
 #Among Us
-- DST-PORT,27015-27030/27036-27037,tcp,TrafficPortGames
-- DST-PORT,4380/27000-27031/27036,udp,TrafficPortGames
+- DST-PORT,27015-27030/27036-27037,TrafficPortGames,tcp
+- DST-PORT,4380/27000-27031/27036,TrafficPortGames,udp
 #Bleach ES
 - DST-PORT,14422,TrafficPortGames
 # growrtopia
@@ -386,7 +370,7 @@ rule-providers:
     path: "./rule_provider/rule_gaming.yaml"
     url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_gaming.yaml
     interval: 86400
-  rule_Speedtest:
+  rule_speedtest:
     type: http
     behavior: classical
     url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_speedtest.yaml
