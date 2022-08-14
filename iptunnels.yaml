@@ -325,8 +325,8 @@ rules:
 - GEOIP,twitter,TrafficSosmed
 - GEOIP,telegram,TrafficSosmed
 - GEOSITE,rule-sosmed,TrafficSosmed
-- GEOSITE,videoconferences,TrafficStreaming
-#VideoConferences
+- GEOSITE,videoconference,TrafficStreaming
+#VideoConference
 - DST-PORT,3478-3497/8801-8810/16384-16387/1853/8200/5004/9000/5090-5091/5349/10000/19302-19309/5938/5060-5061/500/4500,TrafficStreaming
 #MLBB
 - DST-PORT,5000-5221/5224-5227/5229-5241/5243-5287/5289-5352/5354-5509/5517/5520-5529/5551-5559/5601-5700/8443/9000-9010/9443/10003/30000-30300,TrafficPortGames,tcp
