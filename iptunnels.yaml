@@ -204,17 +204,14 @@ dns:
 rules:
 - DST-PORT,22,TrafficDirect
 - GEOIP,private,DIRECT,no-resolve
-- RULE-SET,rule_malicious,REJECT
-- RULE-SET,rule_maliciousip,REJECT
+- GEOSITE,rule-malicious,REJECT
 - GEOSITE,oisd-full,TrafficAds
-- RULE-SET,rule_personalads,TrafficAds
-- RULE-SET,rule_hijacking,TrafficAds
-- RULE-SET,rule_privacy,TrafficAds
+- GEOSITE,rule-ads,TrafficAds
 - GEOSITE,oisd-nsfw,TrafficPorn
 - GEOSITE,category-porn,TrafficPorn
 - RULE-SET,rule_Direct,TrafficDirect
 - GEOSITE,speedtest,TrafficUmum
-- RULE-SET,rule_playstore,TrafficUmum
+- GEOSITE,rule_playstore,TrafficUmum
 - GEOSITE,disney,TrafficIndo
 - GEOSITE,netflix,TrafficIndo
 - GEOIP,netflix,TrafficIndo
@@ -264,7 +261,8 @@ rules:
 - GEOSITE,wwe,TrafficStreaming
 - GEOSITE,z-library,TrafficStreaming
 - GEOSITE,zeetv,TrafficStreaming
-- RULE-SET,rule_Streaming,TrafficStreaming
+- GEOSITE,youtube,TrafficStreaming
+- GEOSITE,rule-streaming,TrafficStreaming
 - GEOSITE,line,TrafficSosmed
 - GEOSITE,facebook,TrafficSosmed
 - GEOIP,facebook,TrafficSosmed
@@ -273,7 +271,14 @@ rules:
 - GEOIP,twitter,TrafficSosmed
 - GEOSITE,telegram,TrafficSosmed
 - GEOIP,telegram,TrafficSosmed
-- RULE-SET,rule_Sosmed,TrafficSosmed
+- GEOSITE,category-forums,TrafficSosmed
+- GEOSITE,vk,TrafficSosmed
+- GEOSITE,pinterest,TrafficSosmed
+- GEOSITE,linkedin,TrafficSosmed
+- GEOSITE,flickr,TrafficSosmed
+- GEOSITE,douyu,TrafficSosmed
+- GEOSITE,rule-sosmed,TrafficSosmed
+- GEOSITE,cisco,TrafficStreaming
 - RULE-SET,rule_videoconferences,TrafficStreaming
 #MLBB
 - DST-PORT,5000-5221/5224-5227/5229-5241/5243-5287/5289-5352/5354-5509/5517/5520-5529/5551-5559/5601-5700/8443/9000-9010/9443/10003/30000-30300,TrafficPortGames,tcp
@@ -324,7 +329,7 @@ rules:
 # apex|ff|mlbbb
 - DST-PORT,8888,TrafficPortGames
 - NOT,((RULE-SET,rule_umum)),TrafficPortGames
-- RULE-SET,rule_Gaming,TrafficGaming
+- GEOSITE,rule-gaming,TrafficGaming
 - GEOSITE,category-games,TrafficGaming
 - GEOSITE,discord,TrafficGaming
 - RULE-SET,rule_umum,TrafficUmum
@@ -352,57 +357,15 @@ rule-providers:
     path: "./rule_provider/rule_videoconferences.yaml"
     url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_videoconferences.yaml
     interval: 86400
-  rule_Sosmed:
-    type: http
-    behavior: classical
-    path: "./rule_provider/rule_sosmed.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_sosmed.yaml
-    interval: 86400
-  rule_Streaming:
-    type: http
-    behavior: classical
-    path: "./rule_provider/rule_streaming.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_streaming.yaml
-    interval: 86400
   rule_Gaming:
     type: http
     behavior: classical
     path: "./rule_provider/rule_gaming.yaml"
     url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_gaming.yaml
     interval: 86400
-  rule_hijacking:
-    type: http
-    behavior: classical
-    path: "./rule_provider/rule_hijacking.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_hijacking.yaml
-    interval: 86400
-  rule_privacy:
-    type: http
-    behavior: classical
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_privacy.yaml
-    path: "./rule_provider/rule_privacy.yaml"
-    interval: 86400
   rule_personalads:
     type: http
     behavior: classical
     url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_personalads.yaml
     path: "./rule_provider/rule_personalads.yaml"
-    interval: 86400
-  rule_malicious:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_malicious.yaml
-    path: "./rule_provider/rule_malicious.yaml"
-    interval: 86400
-  rule_maliciousip:
-    type: http
-    behavior: ipcidr
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_maliciousip.yaml
-    path: "./rule_provider/rule_maliciousip.yaml"
-    interval: 86400
-  rule_playstore:
-    type: http
-    behavior: domain
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_playstore.yaml
-    path: "./rule_provider/rule_playstore.yaml"
     interval: 86400
