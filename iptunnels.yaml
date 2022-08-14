@@ -317,76 +317,15 @@ rules:
 - GEOSITE,oisd-nsfw,TrafficPorn
 - GEOSITE,category-porn,TrafficPorn
 - RULE-SET,rule_Direct,TrafficDirect
-- GEOSITE,speedtest,TrafficUmum
-- GEOSITE,rule-playstore,TrafficUmum
-- GEOSITE,disney,TrafficIndo
-- GEOSITE,netflix,TrafficIndo
+- GEOSITE,rule-umum,TrafficUmum
 - GEOIP,netflix,TrafficIndo
-- GEOSITE,viu,TrafficIndo
-- GEOSITE,hbo,TrafficIndo
 - GEOSITE,rule-indo,TrafficIndo
-- GEOSITE,iqiyi,TrafficStreaming
-- GEOSITE,abema,TrafficStreaming
-- GEOSITE,anime,TrafficStreaming
-- GEOSITE,archiveofourown,TrafficStreaming
-- GEOSITE,attwatchtv,TrafficStreaming
-- GEOSITE,bahamut,TrafficStreaming
-- GEOSITE,bandcamp,TrafficStreaming
-- GEOSITE,dandanzan,TrafficStreaming
-- GEOSITE,dazn,TrafficStreaming
-- GEOSITE,deviantart,TrafficStreaming
-- GEOSITE,discoveryplus,TrafficStreaming
-- GEOSITE,dlsite,TrafficStreaming
-- GEOSITE,goodreads,TrafficStreaming
-- GEOSITE,hamivideo,TrafficStreaming
-- GEOSITE,hulu,TrafficStreaming
-- GEOSITE,imdb,TrafficStreaming
-- GEOSITE,kingkonglive,TrafficStreaming
-- GEOSITE,kkbox,TrafficStreaming
-- GEOSITE,manhuagui,TrafficStreaming
-- GEOSITE,mudvod,TrafficStreaming
-- GEOSITE,mytvsuper,TrafficStreaming
-- GEOSITE,niconico,TrafficStreaming
-- GEOSITE,pixiv,TrafficStreaming
-- GEOSITE,pocketcasts,TrafficStreaming
-- GEOSITE,primevideo,TrafficStreaming
-- GEOSITE,roku,TrafficStreaming
-- GEOSITE,sling,TrafficStreaming
-- GEOSITE,sonypictures,TrafficStreaming
-- GEOSITE,soundcloud,TrafficStreaming
-- GEOSITE,spotify,TrafficStreaming
-- GEOSITE,subscene,TrafficStreaming
-- GEOSITE,tidal,TrafficStreaming
-- GEOSITE,tiktok,TrafficStreaming
-- GEOSITE,tmdb,TrafficStreaming
-- GEOSITE,tvdb,TrafficStreaming
-- GEOSITE,tver,TrafficStreaming
-- GEOSITE,twitch,TrafficStreaming
-- GEOSITE,vimeo,TrafficStreaming
-- GEOSITE,visualarts,TrafficStreaming
-- GEOSITE,volmoe,TrafficStreaming
-- GEOSITE,wwe,TrafficStreaming
-- GEOSITE,z-library,TrafficStreaming
-- GEOSITE,zeetv,TrafficStreaming
-- GEOSITE,youtube,TrafficStreaming
 - GEOSITE,rule-streaming,TrafficStreaming
-- GEOSITE,line,TrafficSosmed
-- GEOSITE,facebook,TrafficSosmed
 - GEOIP,facebook,TrafficSosmed
-- GEOSITE,tiktok,TrafficSosmed
-- GEOSITE,twitter,TrafficSosmed
 - GEOIP,twitter,TrafficSosmed
-- GEOSITE,telegram,TrafficSosmed
 - GEOIP,telegram,TrafficSosmed
-- GEOSITE,category-forums,TrafficSosmed
-- GEOSITE,vk,TrafficSosmed
-- GEOSITE,pinterest,TrafficSosmed
-- GEOSITE,linkedin,TrafficSosmed
-- GEOSITE,flickr,TrafficSosmed
-- GEOSITE,douyu,TrafficSosmed
 - GEOSITE,rule-sosmed,TrafficSosmed
-- GEOSITE,cisco,TrafficStreaming
-- RULE-SET,rule_videoconferences,TrafficStreaming
+- GEOSITE,videoconferences,TrafficStreaming
 #MLBB
 - DST-PORT,5000-5221/5224-5227/5229-5241/5243-5287/5289-5352/5354-5509/5517/5520-5529/5551-5559/5601-5700/8443/9000-9010/9443/10003/30000-30300,TrafficPortGames,tcp
 - DST-PORT,5517-5529/5551-5559/5601-5700/8001/8130/8443/9000-9010/9120/9992/10003/30000-30300,TrafficPortGames,udp
@@ -437,8 +376,6 @@ rules:
 - DST-PORT,8888,TrafficPortGames
 - NOT,((RULE-SET,rule_umum)),TrafficPortGames
 - GEOSITE,rule-gaming,TrafficGaming
-- GEOSITE,category-games,TrafficGaming
-- GEOSITE,discord,TrafficGaming
 - RULE-SET,rule_umum,TrafficUmum
 rule-providers:
   rule_Direct:
@@ -450,10 +387,4 @@ rule-providers:
     behavior: classical
     path: "./rule_provider/rule_umum.yaml"
     url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_umum.yaml
-    interval: 86400
-  rule_videoconferences:
-    type: http
-    behavior: classical
-    path: "./rule_provider/rule_videoconferences.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_videoconferences.yaml
     interval: 86400
