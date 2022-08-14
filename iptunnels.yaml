@@ -318,13 +318,13 @@ rules:
 - GEOSITE,category-porn,TrafficPorn
 - RULE-SET,rule_direct,TrafficDirect
 - GEOSITE,rule-umum,TrafficUmum
-- GEOIP,netflix,TrafficIndo
 - GEOSITE,rule-indo,TrafficIndo
+- GEOIP,netflix,TrafficIndo
 - GEOSITE,rule-streaming,TrafficStreaming
+- GEOSITE,rule-sosmed,TrafficSosmed
 - GEOIP,facebook,TrafficSosmed
 - GEOIP,twitter,TrafficSosmed
 - GEOIP,telegram,TrafficSosmed
-- GEOSITE,rule-sosmed,TrafficSosmed
 - GEOSITE,videoconference,TrafficStreaming
 #VideoConference
 - DST-PORT,3478-3497/8801-8810/16384-16387/1853/8200/5004/9000/5090-5091/5349/10000/19302-19309/5938/5060-5061/500/4500,TrafficStreaming
