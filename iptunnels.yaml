@@ -357,15 +357,3 @@ rule-providers:
     path: "./rule_provider/rule_videoconferences.yaml"
     url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_videoconferences.yaml
     interval: 86400
-  rule_Gaming:
-    type: http
-    behavior: classical
-    path: "./rule_provider/rule_gaming.yaml"
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_gaming.yaml
-    interval: 86400
-  rule_personalads:
-    type: http
-    behavior: classical
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_personalads.yaml
-    path: "./rule_provider/rule_personalads.yaml"
-    interval: 86400
