@@ -213,7 +213,7 @@ rules:
 - GEOSITE,oisd-nsfw,TrafficPorn
 - GEOSITE,category-porn,TrafficPorn
 - RULE-SET,rule_Direct,TrafficDirect
-- RULE-SET,rule_speedtest,TrafficUmum,tcp
+- GEOSITE,speedtest,TrafficUmum
 - RULE-SET,rule_playstore,TrafficUmum
 - GEOSITE,disney,TrafficIndo
 - GEOSITE,netflix,TrafficIndo
@@ -369,12 +369,6 @@ rule-providers:
     behavior: classical
     path: "./rule_provider/rule_gaming.yaml"
     url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_gaming.yaml
-    interval: 86400
-  rule_speedtest:
-    type: http
-    behavior: classical
-    url: https://raw.githubusercontent.com/malikshi/open_clash/main/rule_provider/rule_speedtest.yaml
-    path: "./rule_provider/rule_speedtest.yaml"
     interval: 86400
   rule_hijacking:
     type: http
