@@ -25,11 +25,11 @@ OpenClash Config untuk VVIP IPTUNNELS
 
 # Setting Openclash App
 
-Setelah mengedit config main.yaml dan setiap file pada folder proxy_provider serta rule_direct.yaml pada folder rule_provider maka kita akan setting openclash via luCI. Silahkan Login LuCI dan masuk ke Services > Openclash
+Setelah mengedit config iptunnels.yaml dan setiap file pada folder proxy_provider serta rule_direct.yaml pada folder rule_provider maka kita akan setting openclash via luCI. Silahkan Login LuCI dan masuk ke Services > Openclash
 
 # Global Setting
 
-Hasil settingan pada global setting akan meng-overide settingal awal pada file main.yaml.
+Hasil settingan pada global setting akan meng-overide settingal awal pada file iptunnels.yaml.
 
 ## Operation Mode
 
@@ -99,9 +99,9 @@ Untuk pengaturan config dan proxy_provider silahkan cek repo kami
 - [Cara mengisi akun](https://github.com/malikshi/open_clash#cara-mengisi-akun)
 - [Edit Proxy Provider](https://github.com/malikshi/open_clash#edit-files-proxy-provider)
 
-## Import Main.yaml
+## Import iptunnels.yaml
 
-Setelah melakukan pengeditan main.yaml maka kita import main.yaml via Manage Config. Dan khusus main.yaml jangan import/edit melalui winscp/sftp.
+Setelah melakukan pengeditan iptunnels.yaml maka kita import iptunnels.yaml via Manage Config. Dan khusus iptunnels.yaml jangan import/edit melalui winscp/sftp.
 <img src="https://raw.githubusercontent.com/malikshi/open_clash/main/assets/main-upload.jpg" border="0">
 
 ## Import Proxy Provider
