@@ -2,6 +2,18 @@
 
 - [OpenClash Meta Kernel](#openclash-meta-kernel)
 - [Features](#features)
+- [Setting Openclash App](#setting-openclash-app)
+- [Global Setting](#global-setting)
+  - [Operation Mode](#operation-mode)
+  - [DNS Setting](#dns-setting)
+  - [Meta Setting](#meta-setting)
+    - [GEOIP](#geoip)
+    - [GEOSITE](#geosite)
+- [Setting Config](#setting-config)
+  - [Import iptunnels.yaml](#import-iptunnelsyaml)
+  - [Import Proxy Provider](#import-proxy-provider)
+  - [Import Rule Provider](#import-rule-provider)
+- [Test Adblock 100%](#test-adblock-100)
 
 # OpenClash Meta Kernel
 
