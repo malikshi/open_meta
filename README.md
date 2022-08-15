@@ -58,7 +58,6 @@ FallBack | 149.112.112.112 | 853 | TLS
 
 ## Meta Setting
 
-
 Disini akan menggunakan Meta kernel jadi harus mengatur meta setting.
 <img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-1.jpg" border="0">
 
@@ -83,6 +82,7 @@ Karena semua rule kami pindahkan ke GeoSite.dat maka perlu setting `custom geosi
 ```sh
 https://raw.githubusercontent.com/malikshi/v2ray-rules-dat/release/geosite.dat
 ```
+
 Perhatikan gambar berikut.
 
 <img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-4.jpg" border="0">
@@ -97,6 +97,7 @@ chmod 744 /etc/openclash/GeoSite.dat
 # Setting Config
 
 Untuk pengaturan config dan proxy_provider silahkan cek repo kami
+
 - [Cara mengisi akun](https://github.com/malikshi/open_clash#cara-mengisi-akun)
 - [Edit Proxy Provider](https://github.com/malikshi/open_clash#edit-files-proxy-provider)
 
