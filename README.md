@@ -27,60 +27,22 @@ OpenClash Config untuk VVIP IPTUNNELS
 
 Setelah mengedit config main.yaml dan setiap file pada folder proxy_provider serta rule_direct.yaml pada folder rule_provider maka kita akan setting openclash via luCI. Silahkan Login LuCI dan masuk ke Services > Openclash
 
-## Global Setting
+# Global Setting
 
 Hasil settingan pada global setting akan meng-overide settingal awal pada file main.yaml.
 
-### Operation Mode
+## Operation Mode
 
 - Operation Mode **SWITCH PAGE TO FAKE IP MODE** terlebih dahulu.
 - Ceklist/centang opsi sesuai gambar berikut:
 
-<img src="https://raw.githubusercontent.com/malikshi/open_meta/main/Assets/operationmode.jpg" border="0">
+<img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/operationmode.jpg" border="0">
 
-### DNS Setting
+## DNS Setting
 
 - Ceklist/Centang sesuai gambar:
 
-<img src="https://raw.githubusercontent.com/malikshi/open_clash/main/assets/dnssetting.jpg" border="0">
-
-- Isi Fallback-filter
-
-Perlu diedit isi fallback-filternya supaya mendapatkan hostname di Yacd Connection log. isi fallback-filter dengan ini.
-
-```yaml
-fallback-filter:
-  geoip: true
-  geoip-code: ID
-  ipcidr:
-    - 0.0.0.0/8
-    - 10.0.0.0/8
-    - 100.64.0.0/10
-    - 127.0.0.0/8
-    - 169.254.0.0/16
-    - 172.16.0.0/12
-    - 192.0.0.0/24
-    - 192.0.2.0/24
-    - 192.88.99.0/24
-    - 192.168.0.0/16
-    - 198.18.0.0/15
-    - 198.51.100.0/24
-    - 203.0.113.0/24
-    - 224.0.0.0/4
-    - 240.0.0.0/4
-    - 255.255.255.255/32
-  domain:
-    - "+.google.com"
-    - "+.facebook.com"
-    - "+.youtube.com"
-    - "+.githubusercontent.com"
-    - "+.googlevideo.com"
-    - "+.msftconnecttest.com"
-    - "+.msftncsi.com"
-    - msftconnecttest.com
-    - msftncsi.com
-    - "+.*"
-```
+<img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/dnssetting-1.jpg" border="0">
 
 - Tambahkan Server Group name server dan fallback masing masing 2 seperti pada gambar berikut.
 
@@ -93,26 +55,68 @@ NameServer | 9.9.9.9 | 853 | TLS
 FallBack | dns.quad9.net/dns-query |   | HTTPS
 FallBack | 149.112.112.112 | 853 | TLS
 
-### GEOIP Update
+## Meta Setting
 
-Pada rule_indo.yaml menggunakan geoip:ID dimana jika IP tersebut bercode/berasal negara Indonesia maka akan menggunakan trafficIndo.yaml dan itu membutuhkan mmdb yang selalu updated sebagai data geoip seluruh negara.
-<img src="https://raw.githubusercontent.com/malikshi/open_clash/main/assets/geoip-update.jpg" border="0">
 
-## Manage Config
+Disini akan menggunakan Meta kernel jadi harus mengatur meta setting.
+<img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-1.jpg" border="0">
 
-Mulai dari versi v0.44.22-beta pada branch dev, menu Manage Config support dengan fungsi create,edit,delete file jadi tidak perlu login ssh untuk edit via terminal router openwrt. Tidak membutuhkan tiny fm (file manager) karena config editor built-in openclash terdapat validator config jika terdapat kesalahan/error saat melakukan pengeditan.
+<img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-2.jpg" border="0">
 
-### Import Main.yaml
+### GEOIP
+
+Wajib menggunakan GeoIP.dat silahkan setting sesuai gambar
+<img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-3.jpg" border="0">
+
+Jika belum ada GeoIP pada folder `/etc/openclash/` maka silahkan download terlebih dahulu.
+
+```sh
+wget -O /etc/openclash/GeoIP.dat https://raw.githubusercontent.com/malikshi/v2ray-rules-dat/release/geoip.dat
+chmod 744 /etc/openclash/GeoIP.dat
+```
+
+### GEOSITE
+
+Karena semua rule kami pindahkan ke GeoSite.dat maka perlu setting `custom geosite url` menggunakan hasil compile custom list yang telah kami sediakan.
+
+```sh
+https://raw.githubusercontent.com/malikshi/v2ray-rules-dat/release/geosite.dat
+```
+Perhatikan gambar berikut.
+
+<img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-4.jpg" border="0">
+
+WAJIB menggunakan GeoSite custom kami. Silahkan download terlebih dahulu.
+
+```sh
+wget -O /etc/openclash/GeoSite.dat https://raw.githubusercontent.com/malikshi/v2ray-rules-dat/release/geosite.dat
+chmod 744 /etc/openclash/GeoSite.dat
+```
+
+# Setting Config
+
+Untuk pengaturan config dan proxy_provider silahkan cek repo kami
+- [Cara mengisi akun](https://github.com/malikshi/open_clash#cara-mengisi-akun)
+- [Edit Proxy Provider](https://github.com/malikshi/open_clash#edit-files-proxy-provider)
+
+## Import Main.yaml
 
 Setelah melakukan pengeditan main.yaml maka kita import main.yaml via Manage Config. Dan khusus main.yaml jangan import/edit melalui winscp/sftp.
 <img src="https://raw.githubusercontent.com/malikshi/open_clash/main/assets/main-upload.jpg" border="0">
 
-### Import Proxy Provider
+## Import Proxy Provider
 
 Jika Semua file pada folder proxy_provider yang terdiri dari vvip-id.yaml, vvip-sg.yaml, vvip-game.yaml yang sudah diisi dengan akun maka selanjutnya import file-file tersebut pada **Upload File Type : Proxy Provider File**.
 <img src="https://raw.githubusercontent.com/malikshi/open_clash/main/assets/proxy-upload.jpg" border="0">
 
-### Import Rule Provider
+## Import Rule Provider
 
 traffic direct/bypass sudah disikan ke rule_direct.yaml maka bisa langsung import semua files pada folder rule_provider pada **Upload File Type : Rule Provider File**.
 <img src="https://raw.githubusercontent.com/malikshi/open_clash/main/assets/rule-upload.jpg" border="0">
+
+# Test Adblock 100%
+
+Silahkan test rules adblock melalui [https://d3ward.github.io/toolz/adblock.html](https://d3ward.github.io/toolz/adblock.html)
+
+Hasil test:
+<img src="https://raw.githubusercontent.com/malikshi/open_clash/main/assets/d3ward.jpg" border="0">
