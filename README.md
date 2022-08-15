@@ -1,5 +1,7 @@
 **Table of Contents**
+
 - [OpenClash Meta Kernel](#openclash-meta-kernel)
+- [Features](#features)
 
 # OpenClash Meta Kernel
 
