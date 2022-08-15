@@ -311,7 +311,7 @@ dns:
 rules:
 - DST-PORT,22,TrafficDirect
 - GEOIP,private,DIRECT,no-resolve
-- GEOSITE,rule-malicious,REJECT     #activating this will probably make an error
+- GEOSITE,rule-malicious,REJECT
 - GEOSITE,oisd-full,TrafficAds
 - GEOSITE,rule-ads,TrafficAds
 - GEOSITE,oisd-nsfw,TrafficPorn
