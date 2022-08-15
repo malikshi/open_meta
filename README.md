@@ -1,7 +1,6 @@
 **Table of Contents**
 - [OpenClash Meta Kernel](#openclash-meta-kernel)
 
-
 # OpenClash Meta Kernel
 
 OpenClash Config untuk VVIP IPTUNNELS
