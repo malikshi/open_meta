@@ -73,8 +73,30 @@ FallBack | 149.112.112.112 | 853 | TLS
 Disini akan menggunakan Meta kernel jadi harus mengatur meta setting.
 <img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-1.jpg" border="0">
 
+```
+force-domain:
+#  - '+'
+- '+.netflix.com'
+- '+.nflxvideo.net'
+- '+.amazonaws.com'
+- '+.media.dssot.com'
+```
+
 <img src="https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-2.jpg" border="0">
 
+```
+port-whitelist:
+  - 443
+  - 80
+#  - 8080-9090
+```
+
+```
+skip-sni:
+  - '+.apple.com'
+  - 'Mijia Cloud'
+  - '+.jd.com'
+```
 ### GEOIP
 
 Wajib menggunakan GeoIP.dat silahkan setting sesuai gambar
