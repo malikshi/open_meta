@@ -318,6 +318,8 @@ rules:
 - GEOSITE,category-porn,TrafficPorn
 - RULE-SET,rule_direct,TrafficDirect
 - GEOSITE,rule-umum,TrafficUmum
+#Zerotier
+- AND,((GEOSITE,rule-umum),(DST-PORT,9993/29994/40775/43215)),TrafficUmum
 - GEOSITE,rule-indo,TrafficIndo
 - GEOIP,netflix,TrafficIndo
 - GEOSITE,rule-streaming,TrafficStreaming
