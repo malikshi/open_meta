@@ -377,7 +377,7 @@ rules:
 # growrtopia
 - DST-PORT,16999,TrafficPortGames
 # apex|ff|mlbbb
-- DST-PORT,8888,TrafficPortGames
+- DST-PORT,8013/8888,TrafficPortGames
 #for ALL ports games
 - NOT,((RULE-SET,rule_umum)),TrafficPortGames
 - GEOSITE,rule-gaming,TrafficGaming
