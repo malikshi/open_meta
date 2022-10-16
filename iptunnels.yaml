@@ -381,6 +381,8 @@ rules:
 # PB Zeppeto / PB PC
 - DST-PORT,39190-39200/49001-49190,TrafficPortGames,tcp
 - DST-PORT,40000-40010,TrafficPortGames,udp
+# LOST SAGA PC/GN
+- DST-PORT,14009/40005,TrafficPortGames
 #for ALL ports games
 - NOT,((RULE-SET,rule_umum)),TrafficPortGames
 - GEOSITE,rule-gaming,TrafficGaming
