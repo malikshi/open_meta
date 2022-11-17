@@ -51,13 +51,13 @@ Hasil settingan pada global setting akan meng-overide settingal awal pada file i
 - Operation Mode **SWITCH PAGE TO FAKE IP MODE** terlebih dahulu.
 - Ceklist/centang opsi sesuai gambar berikut:
 
-[![Gambar Operation Mode](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/operationmode.jpg "Operation Mode")](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/operationmode.jpg)
+[![Gambar Operation Mode](https://raw.githubusercontent.com/malikshi/open_meta/main/images/operationmode.jpg "Operation Mode")](https://raw.githubusercontent.com/malikshi/open_meta/main/images/operationmode.jpg)
 
 ## DNS Setting
 
 - Ceklist/Centang sesuai gambar:
 
-[![Gambar Setting DNS](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/dnssetting-1.jpg "Setting DNS")](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/dnssetting-1.jpg)
+[![Gambar Setting DNS](https://raw.githubusercontent.com/malikshi/open_meta/main/images/dnssetting-1.jpg "Setting DNS")](https://raw.githubusercontent.com/malikshi/open_meta/main/images/dnssetting-1.jpg)
 
 ## Kernel Meta
 
@@ -67,14 +67,14 @@ Hasil settingan pada global setting akan meng-overide settingal awal pada file i
 - Pilih file bernama **Clash.Meta-linux-arm64-v1.xx.x.gz**
 - Upload file tersebut sebagai **Upload File Type : [Meta] Core File**
 
-[![Gambar Meta Core](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metacore.jpg "Meta Core")](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metacore.jpg)
+[![Gambar Meta Core](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metacore.jpg "Meta Core")](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metacore.jpg)
 
 
 ## Meta Setting
 
 Disini akan menggunakan Meta kernel jadi harus mengatur meta setting.
 
-[![Gambar Setting Meta](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metasetting-1.jpg "Setting Meta")](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metasetting-1.jpg)
+[![Gambar Setting Meta](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-1.jpg "Setting Meta")](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-1.jpg)
 
 ```
 force-domain:
@@ -85,7 +85,7 @@ force-domain:
 - '+.media.dssot.com'
 ```
 
-[![Gambar Setting Meta](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metasetting-2.jpg "Setting Meta")](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metasetting-2.jpg)
+[![Gambar Setting Meta](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-2.jpg "Setting Meta")](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-2.jpg)
 
 ```
 port-whitelist:
@@ -105,7 +105,7 @@ skip-sni:
 
 Wajib menggunakan GeoIP.dat silahkan setting sesuai gambar
 
-[![Gambar Setting GeoIP](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metasetting-3.jpg "Setting GeoIP")](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metasetting-3.jpg)
+[![Gambar Setting GeoIP](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-3.jpg "Setting GeoIP")](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-3.jpg)
 
 Jika belum ada GeoIP pada folder `/etc/openclash/` maka silahkan download terlebih dahulu.
 
@@ -124,7 +124,7 @@ https://raw.githubusercontent.com/malikshi/v2ray-rules-dat/release/geosite.dat
 
 Perhatikan gambar berikut.
 
-[![Gambar Setting GeoSite](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metasetting-4.jpg "Setting GeoSite")](https://raw.githubusercontent.com/rfxcll/open_meta/main/images/metasetting-4.jpg)
+[![Gambar Setting GeoSite](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-4.jpg "Setting GeoSite")](https://raw.githubusercontent.com/malikshi/open_meta/main/images/metasetting-4.jpg)
 
 WAJIB menggunakan GeoSite custom kami. Silahkan download terlebih dahulu.
 
